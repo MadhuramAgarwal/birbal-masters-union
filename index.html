@@ -1,0 +1,2880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birbal × Masters' Union</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #051C2C;
+  --ink-soft: #2B3E4F;
+  --ink-mute: #6B7A89;
+  --signal: #2251FF;
+  --rule: #D3DADF;
+  --paper: #FAFAF8;
+  --paper-card: #FFFFFF;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Newsreader', Georgia, serif;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+.progress {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: 2px; z-index: 100; pointer-events: none;
+}
+.progress-bar {
+  height: 100%; background: var(--signal); width: 0;
+  transition: width 80ms linear;
+}
+
+.scene {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 120px 48px;
+  position: relative;
+}
+
+.container { max-width: 880px; margin: 0 auto; width: 100%; text-align: center; }
+
+/* —— Top fixed header —— */
+.top-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 50;
+  background: rgba(250, 250, 248, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--rule);
+  padding: 16px 28px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+.header-mark {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.top-header .birbal-mark {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  font-style: italic;
+  color: var(--ink);
+  font-weight: 400;
+}
+
+.top-header .x {
+  color: var(--ink-mute);
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 18px;
+  font-style: italic;
+  text-transform: none;
+}
+
+.top-header .partner-logo {
+  height: 40px;
+  width: auto;
+  display: block;
+}
+
+/* —— Tab nav —— */
+.tab-nav {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
+}
+.tab {
+  background: none;
+  border: none;
+  padding: 10px 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  cursor: pointer;
+  position: relative;
+  transition: color 200ms ease;
+  font-weight: 500;
+}
+.tab:hover { color: var(--ink); }
+.tab.active { color: var(--signal); }
+.tab.active::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 28px;
+  height: 2px;
+  background: var(--signal);
+}
+.tab .tab-num {
+  font-size: 9px;
+  color: var(--ink-mute);
+  margin-right: 8px;
+  opacity: 0.6;
+}
+.tab.active .tab-num { color: var(--signal); opacity: 1; }
+
+/* —— Tab panels —— */
+.tab-panel { display: none; }
+.tab-panel.active {
+  display: block;
+  animation: panelIn 500ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+@keyframes panelIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+.eyebrow::before { content: ""; width: 28px; height: 1px; background: var(--signal); }
+.eyebrow::after { content: ""; width: 28px; height: 1px; background: var(--signal); }
+
+h1 {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: clamp(56px, 9vw, 110px);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  margin-bottom: 24px;
+  text-align: center;
+}
+h1 em { color: var(--signal); font-style: italic; }
+
+h2 {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: clamp(36px, 5vw, 60px);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  margin-bottom: 24px;
+  text-align: center;
+}
+h2 em { color: var(--signal); font-style: italic; }
+
+.lede {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: clamp(20px, 2.4vw, 26px);
+  font-style: italic;
+  color: var(--signal);
+  line-height: 1.4;
+  margin: 0 auto 32px;
+  max-width: 680px;
+  text-align: center;
+}
+
+p { color: var(--ink-soft); margin: 0 auto 18px; max-width: 640px; text-align: center; }
+p strong { color: var(--ink); font-weight: 600; }
+p em { color: var(--signal); font-style: italic; }
+
+/* Hero word reveal */
+.hero { min-height: auto; padding: 100px 48px 60px; }
+.hero h1 { font-size: clamp(40px, 6.4vw, 84px); margin-bottom: 22px; margin-top: 24px; }
+.hero .lede { margin-bottom: 0; }
+
+/* Drift illustration */
+.drift-illustration {
+  width: 100%;
+  max-width: 820px;
+  margin: 0 auto;
+  display: block;
+  opacity: 0;
+  animation: fadeUp 900ms ease-out 1100ms forwards;
+}
+.drift-svg { width: 100%; height: auto; display: block; }
+
+.drift-svg .water-line {
+  stroke: rgba(34, 81, 255, 0.18);
+  stroke-width: 1;
+  fill: none;
+  animation: waveSlide 5s ease-in-out infinite;
+}
+.drift-svg .water-line.w2 { animation-delay: 1.2s; opacity: 0.7; }
+.drift-svg .water-line.w3 { animation-delay: 2.4s; opacity: 0.5; }
+@keyframes waveSlide {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(8px); }
+}
+
+.drift-svg .intended-path {
+  stroke: var(--signal);
+  stroke-width: 2;
+  stroke-dasharray: 6 6;
+  fill: none;
+  opacity: 0.75;
+}
+
+.drift-svg .drift-path {
+  stroke: var(--ink);
+  stroke-width: 1.5;
+  fill: none;
+  opacity: 0.55;
+  stroke-dasharray: 900;
+  stroke-dashoffset: 900;
+  animation: pathDraw 2.4s cubic-bezier(0.4, 0, 0.2, 1) 1400ms forwards;
+}
+@keyframes pathDraw { to { stroke-dashoffset: 0; } }
+
+.drift-svg .drift-boat {
+  offset-path: path('M 170 180 Q 230 100 310 200 Q 390 285 470 140 Q 530 210 485 248');
+  offset-rotate: auto;
+  animation: boatDrift 9s cubic-bezier(0.4, 0, 0.2, 1) 2200ms infinite;
+  transform-box: fill-box;
+}
+
+.drift-svg .island-label.island-mid {
+  fill: var(--ink-mute);
+  font-size: 9px;
+}
+
+.drift-svg .gap-line {
+  stroke: #C77700;
+  stroke-width: 1.8;
+  stroke-dasharray: 4 5;
+  fill: none;
+  opacity: 0;
+  animation: fadeUp 700ms ease-out 3000ms forwards;
+}
+.drift-svg .gap-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  fill: #C77700;
+  font-weight: 600;
+  opacity: 0;
+  animation: fadeUp 700ms ease-out 3200ms forwards;
+}
+@keyframes boatDrift {
+  0% { offset-distance: 0%; opacity: 0; }
+  6% { opacity: 1; }
+  90% { offset-distance: 96%; opacity: 1; }
+  100% { offset-distance: 100%; opacity: 0.25; }
+}
+
+.drift-svg .island-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  fill: var(--ink);
+  font-weight: 500;
+}
+.drift-svg .intended-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  fill: var(--signal);
+  font-weight: 600;
+  opacity: 1;
+}
+
+@media (max-width: 720px) {
+  .drift-illustration { margin-top: 20px; }
+}
+.word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(28px);
+  animation: wordIn 900ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+.word.italic { font-style: italic; color: var(--signal); }
+@keyframes wordIn { to { opacity: 1; transform: translateY(0); } }
+
+.hero .lede { opacity: 0; animation: fadeUp 800ms ease-out 800ms forwards; }
+.hero .scroll-cue {
+  position: absolute; bottom: 48px; left: 50%; transform: translateX(-50%);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--ink-mute);
+  opacity: 0; animation: fadeUp 600ms ease-out 1400ms forwards;
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+}
+.scroll-cue .line {
+  width: 1px; height: 32px; background: var(--rule);
+  position: relative; overflow: hidden;
+}
+.scroll-cue .line::after {
+  content: ""; position: absolute; top: -32px; left: 0; right: 0;
+  height: 32px; background: var(--signal);
+  animation: scrollDot 2.4s ease-in-out infinite;
+}
+@keyframes scrollDot { 0% { top: -32px; } 100% { top: 32px; } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Reveal utility */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 800ms cubic-bezier(0.2, 0.8, 0.2, 1),
+              transform 800ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.reveal.in { opacity: 1; transform: translateY(0); }
+.reveal.delay-1 { transition-delay: 100ms; }
+.reveal.delay-2 { transition-delay: 200ms; }
+.reveal.delay-3 { transition-delay: 300ms; }
+.reveal.delay-4 { transition-delay: 400ms; }
+
+/* Broken nodes diagram */
+.diagram-broken {
+  margin: 48px auto 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
+  align-items: center;
+  position: relative;
+  max-width: 720px;
+  text-align: left;
+}
+.node {
+  background: var(--paper-card);
+  border: 1px solid var(--rule);
+  padding: 24px 20px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  transition: all 600ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.node .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--ink-mute); margin-bottom: 8px;
+}
+.node .name {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 22px; color: var(--ink); margin-bottom: 6px;
+}
+.node .state { font-size: 13px; color: var(--ink-mute); font-style: italic; }
+
+.diagram-broken .node:nth-child(1) { transform: translateY(-12px); }
+.diagram-broken .node:nth-child(2) { transform: translateY(8px); opacity: 0.7; }
+.diagram-broken .node:nth-child(3) { transform: translateY(-4px); opacity: 0.5; }
+
+.connector {
+  position: absolute;
+  top: 50%;
+  height: 1px;
+  background-image: linear-gradient(90deg, var(--ink-mute) 50%, transparent 50%);
+  background-size: 6px 1px;
+  z-index: 1;
+}
+.connector.left  { left: calc((100% - 48px) / 3);                right: auto; width: 24px; }
+.connector.right { left: calc(2 * (100% - 48px) / 3 + 24px);     right: auto; width: 24px; }
+
+/* Loop SVG */
+.loop-wrap { margin-top: 56px; display: flex; justify-content: center; }
+.loop-svg { width: 100%; max-width: 720px; height: auto; }
+
+.loop-svg .ring {
+  fill: none; stroke: var(--rule); stroke-width: 1;
+  stroke-dasharray: 4 4;
+}
+
+.loop-svg .arc-active {
+  fill: none; stroke: var(--signal); stroke-width: 1.5;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  transition: stroke-dashoffset 2s cubic-bezier(0.4, 0, 0.2, 1) 200ms;
+}
+.loop-svg.in .arc-active { stroke-dashoffset: 0; }
+.loop-svg.in .arc-active.a2 { transition-delay: 700ms; }
+.loop-svg.in .arc-active.a3 { transition-delay: 1300ms; }
+
+.loop-svg .node-circle {
+  fill: var(--paper); stroke: var(--ink); stroke-width: 1.5;
+  opacity: 0; transition: opacity 600ms ease-out;
+}
+.loop-svg.in .node-circle { opacity: 1; }
+.loop-svg .node-circle.n1 { transition-delay: 100ms; }
+.loop-svg .node-circle.n2 { transition-delay: 800ms; }
+.loop-svg .node-circle.n3 { transition-delay: 1400ms; }
+
+.loop-svg .node-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+  fill: var(--ink-soft);
+  opacity: 0; transition: opacity 600ms ease-out;
+}
+.loop-svg.in .node-label { opacity: 1; }
+.loop-svg .node-label.n1 { transition-delay: 200ms; }
+.loop-svg .node-label.n2 { transition-delay: 900ms; }
+.loop-svg .node-label.n3 { transition-delay: 1500ms; }
+
+.loop-svg .center-label {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic; font-size: 28px;
+  fill: var(--signal); text-anchor: middle;
+  opacity: 0; transition: opacity 800ms ease-out 2200ms;
+}
+.loop-svg.in .center-label { opacity: 1; }
+
+.loop-svg .center-label-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+  fill: var(--ink-mute); text-anchor: middle;
+  opacity: 0; transition: opacity 800ms ease-out 2500ms;
+}
+.loop-svg.in .center-label-sub { opacity: 1; }
+
+.loop-svg .pulse {
+  fill: var(--signal); r: 4;
+}
+.loop-svg.in .pulse {
+  animation: pulseTravel 8s linear infinite 2.5s;
+}
+@keyframes pulseTravel {
+  0%   { offset-distance: 0%; opacity: 0; }
+  5%   { opacity: 1; }
+  95%  { opacity: 1; }
+  100% { offset-distance: 100%; opacity: 0; }
+}
+
+/* Timeline */
+.timeline { margin: 48px auto 0; position: relative; max-width: 720px; text-align: left; }
+.timeline::before {
+  content: ""; position: absolute; left: 90px; top: 24px; bottom: 24px;
+  width: 1px; background: var(--rule);
+}
+
+.t-step {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 32px; padding: 28px 0; align-items: start;
+  opacity: 0; transform: translateX(-12px);
+  transition: opacity 700ms ease-out, transform 700ms ease-out;
+  position: relative;
+}
+.t-step.in { opacity: 1; transform: translateX(0); }
+
+.t-step .day {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--signal); background: var(--paper);
+  padding: 4px 0; position: relative; z-index: 2;
+}
+
+.t-step::after {
+  content: ""; position: absolute; left: 86px; top: 32px;
+  width: 9px; height: 9px;
+  background: var(--paper); border: 1.5px solid var(--signal);
+  border-radius: 50%; z-index: 1;
+  transition: background 400ms ease-out, transform 400ms ease-out;
+}
+.t-step.in::after { background: var(--signal); transform: scale(1.05); }
+
+.t-step h3 {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 28px; font-weight: 400; color: var(--ink);
+  margin-bottom: 6px; line-height: 1.2;
+  text-align: left;
+}
+.t-step p { font-size: 16px; margin: 0; color: var(--ink-soft); text-align: left; max-width: none; }
+
+/* Offer */
+.offer {
+  background: var(--paper-card);
+  border: 1px solid var(--ink);
+  padding: 56px;
+  margin: 40px auto 0;
+  max-width: 720px;
+  text-align: left;
+}
+.offer h3 {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 32px; font-weight: 400; margin-bottom: 28px;
+  text-align: center;
+}
+.offer-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 32px 56px;
+}
+.offer-item .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--ink-mute); margin-bottom: 8px;
+}
+.offer-item .value {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: 17px; color: var(--ink);
+  font-weight: 500; line-height: 1.4;
+}
+.offer-item .value em { color: var(--signal); font-style: italic; }
+
+/* CTA — light theme */
+.cta-scene { background: var(--paper); color: var(--ink); }
+.cta-scene h2 { color: var(--ink); }
+.cta-scene .lede { color: var(--ink-soft); }
+.cta-scene .eyebrow { color: var(--ink-soft); }
+.cta-scene .eyebrow::before, .cta-scene .eyebrow::after { background: var(--signal); }
+.cta-scene p { color: var(--ink-soft); }
+
+.cta-buttons {
+  margin-top: 40px;
+  display: flex; gap: 24px;
+  align-items: center; flex-wrap: wrap;
+  justify-content: center;
+}
+.cta-button {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 18px 32px;
+  background: var(--signal); color: #fff;
+  text-decoration: none;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+  font-weight: 500;
+  transition: all 250ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.cta-button:hover { background: var(--ink); color: #fff; transform: translateY(-2px); }
+.cta-button .arrow { transition: transform 250ms ease; }
+.cta-button:hover .arrow { transform: translate(3px, -3px); }
+
+.cta-secondary {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; letter-spacing: 0.1em;
+  color: var(--ink-soft);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 2px;
+  transition: all 200ms ease;
+}
+.cta-secondary:hover { color: var(--signal); border-color: var(--signal); }
+
+.calendar-section {
+  margin-top: 56px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: var(--paper-card);
+  min-height: 700px; overflow: hidden;
+}
+
+footer {
+  background: var(--paper-card);
+  padding: 32px 48px;
+  border-top: 1px solid var(--rule);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 32px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--ink-mute);
+  text-transform: uppercase;
+}
+footer .f-left {
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+footer .f-left .mark {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  text-transform: none;
+}
+footer .f-left .dot {
+  width: 3px; height: 3px; border-radius: 50%;
+  background: var(--signal);
+  display: inline-block;
+}
+footer .f-center a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 2px;
+  transition: color 200ms ease, border-color 200ms ease;
+  text-transform: none;
+  letter-spacing: 0.04em;
+  font-size: 12px;
+}
+footer .f-center a:hover { color: var(--signal); border-color: var(--signal); }
+footer .f-right {
+  text-align: right;
+  color: var(--ink-mute);
+  font-size: 10px;
+}
+
+/* ===== THEN vs NOW ===== */
+.comparison {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 24px;
+  margin-top: 48px;
+  align-items: stretch;
+  text-align: left;
+}
+.comp-side {
+  border: 1px solid var(--rule);
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: relative;
+  border-radius: 6px;
+}
+.comp-side.then {
+  background: #F4F2EE;
+  border-color: #DCD8D0;
+}
+.comp-side.now {
+  background: #FFFFFF;
+  border-color: var(--ink);
+  box-shadow: 0 24px 48px -28px rgba(5, 28, 44, 0.18);
+}
+.comp-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 4px;
+}
+.comp-side.now .comp-label { color: var(--signal); }
+
+.comp-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 6px;
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  line-height: 1.4;
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 600ms ease, transform 600ms ease;
+}
+.comp-side.now .comp-row {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  color: var(--ink);
+}
+.comparison.in .comp-row { opacity: 1; transform: translateX(0); }
+.comparison.in .comp-side.then .comp-row:nth-of-type(2) { opacity: 0.7; transition-delay: 200ms; }
+.comparison.in .comp-side.then .comp-row:nth-of-type(3) { opacity: 0.5; transition-delay: 400ms; }
+.comparison.in .comp-side.then .comp-row:nth-of-type(4) { opacity: 0.3; transition-delay: 600ms; }
+.comparison.in .comp-side.then .comp-row:nth-of-type(5) { opacity: 0.18; transition-delay: 800ms; }
+.comparison.in .comp-side.now .comp-row:nth-of-type(2) { transition-delay: 200ms; }
+.comparison.in .comp-side.now .comp-row:nth-of-type(3) { transition-delay: 400ms; }
+.comparison.in .comp-side.now .comp-row:nth-of-type(4) { transition-delay: 600ms; }
+.comparison.in .comp-side.now .comp-row:nth-of-type(5) { transition-delay: 800ms; }
+
+.comp-row .ico {
+  width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(0, 0, 0, 0.06);
+  border-radius: 50%;
+  flex-shrink: 0;
+  font-size: 13px;
+}
+.comp-side.now .comp-row .ico {
+  background: rgba(34, 81, 255, 0.1);
+  color: var(--signal);
+}
+
+.comp-result {
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+  font-size: 16px;
+}
+.comp-side.then .comp-result { color: var(--ink-mute); }
+.comp-side.now .comp-result { color: var(--signal); }
+
+.comp-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+  font-size: 22px;
+  color: var(--ink-mute);
+  padding: 0 8px;
+  align-self: center;
+}
+
+/* ===== MOCKUP SCENES ===== */
+.container-wide { max-width: 1180px; margin: 0 auto; width: 100%; }
+
+.mockup-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 64px;
+  align-items: center;
+}
+.mockup-grid.reverse { grid-template-columns: 1.15fr 1fr; }
+.mockup-grid.reverse .mockup-text { order: 2; }
+
+.mockup-text { text-align: left; }
+.mockup-text h2 { text-align: left; margin-bottom: 18px; font-size: clamp(32px, 4vw, 48px); }
+.mockup-text p { text-align: left; margin: 0 0 14px 0; max-width: 460px; }
+
+.step-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--signal);
+  margin-bottom: 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.step-num::after {
+  content: ""; width: 32px; height: 1px; background: var(--signal);
+}
+
+/* ----- Chat mockup ----- */
+.chat-mockup {
+  background: var(--paper-card);
+  border: 1px solid var(--ink);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 28px 56px -32px rgba(5, 28, 44, 0.25);
+  font-family: 'Newsreader', Georgia, serif;
+}
+.chat-header {
+  background: var(--ink);
+  color: #fff;
+  padding: 14px 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.chat-header .pill {
+  background: rgba(255,255,255,0.1);
+  padding: 3px 8px;
+  border-radius: 10px;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+}
+.chat-messages {
+  padding: 22px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #FBFAF7;
+  min-height: 300px;
+}
+.chat-msg {
+  max-width: 82%;
+  padding: 11px 15px;
+  border-radius: 14px;
+  font-size: 14px;
+  line-height: 1.5;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 500ms ease, transform 500ms ease;
+}
+.chat-msg.birbal {
+  background: var(--paper-card);
+  border: 1px solid var(--rule);
+  align-self: flex-start;
+  color: var(--ink);
+  border-radius: 14px 14px 14px 3px;
+}
+.chat-msg.user {
+  background: var(--signal);
+  color: #fff;
+  align-self: flex-end;
+  border-radius: 14px 14px 3px 14px;
+}
+.chat-mockup.in .chat-msg { opacity: 1; transform: translateY(0); }
+.chat-mockup.in .chat-msg:nth-child(1) { transition-delay: 200ms; }
+.chat-mockup.in .chat-msg:nth-child(2) { transition-delay: 700ms; }
+.chat-mockup.in .chat-msg:nth-child(3) { transition-delay: 1300ms; }
+.chat-mockup.in .chat-msg:nth-child(4) { transition-delay: 1900ms; }
+.chat-mockup.in .chat-msg:nth-child(5) { transition-delay: 2500ms; }
+.chat-mockup.in .chat-msg:nth-child(6) { transition-delay: 3100ms; }
+
+.chat-msg.typing {
+  display: inline-flex;
+  gap: 5px;
+  padding: 14px 16px;
+  align-items: center;
+  align-self: flex-start;
+}
+.chat-msg.typing span {
+  width: 6px; height: 6px;
+  background: var(--ink-mute);
+  border-radius: 50%;
+  display: inline-block;
+}
+.chat-mockup.in .chat-msg.typing span { animation: typing 1.2s infinite; }
+.chat-mockup.in .chat-msg.typing span:nth-child(2) { animation-delay: 200ms; }
+.chat-mockup.in .chat-msg.typing span:nth-child(3) { animation-delay: 400ms; }
+@keyframes typing {
+  0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
+  30% { opacity: 1; transform: translateY(-3px); }
+}
+
+.file-attach {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  background: rgba(255,255,255,0.18);
+  border-radius: 6px;
+  font-size: 12.5px;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.04em;
+}
+.check-line {
+  display: flex; align-items: flex-start; gap: 8px;
+  padding: 4px 0;
+  font-size: 13.5px;
+}
+.check-line .mark-ok { color: #1a8a4a; font-weight: 700; }
+.check-line .mark-warn { color: #C77700; font-weight: 700; }
+.check-line .mark-fail { color: #B33; font-weight: 700; }
+
+/* ----- Dashboard mockup ----- */
+.dash-mockup {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  background: var(--paper-card);
+  border: 1px solid var(--ink);
+  border-radius: 10px;
+  overflow: hidden;
+  min-height: 380px;
+  box-shadow: 0 28px 56px -32px rgba(5, 28, 44, 0.25);
+}
+.dash-side {
+  background: var(--ink);
+  color: #fff;
+  padding: 22px 18px;
+}
+.dash-side .dash-logo {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+  font-size: 22px;
+  margin-bottom: 28px;
+}
+.dash-side .dash-nav {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  padding: 9px 0;
+}
+.dash-side .dash-nav.active { color: var(--signal); }
+.dash-main { padding: 22px; background: var(--paper); }
+.dash-main h4 {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 22px; font-weight: 400;
+  margin-bottom: 14px; color: var(--ink);
+}
+.course-card {
+  background: var(--paper-card);
+  border: 1px solid var(--rule);
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: center;
+  border-radius: 5px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 500ms ease, transform 500ms ease;
+}
+.dash-mockup.in .course-card { opacity: 1; transform: translateY(0); }
+.dash-mockup.in .course-card:nth-of-type(1) { transition-delay: 250ms; }
+.dash-mockup.in .course-card:nth-of-type(2) { transition-delay: 500ms; }
+.dash-mockup.in .course-card:nth-of-type(3) { transition-delay: 750ms; }
+.dash-mockup.in .course-card:nth-of-type(4) { transition-delay: 1000ms; }
+.course-name {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 17px; line-height: 1.2;
+}
+.course-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--ink-mute);
+  margin-top: 3px;
+}
+.score {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  padding: 5px 9px;
+  border-radius: 4px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+}
+.score.good { background: rgba(26, 138, 74, 0.1); color: #1a8a4a; }
+.score.warn { background: rgba(199, 119, 0, 0.1); color: #C77700; }
+.score.alert { background: rgba(179, 51, 51, 0.1); color: #B33; }
+
+/* ----- Live class mockup ----- */
+.live-mockup {
+  background: var(--paper-card);
+  border: 1px solid var(--ink);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 28px 56px -32px rgba(5, 28, 44, 0.25);
+}
+.live-header {
+  background: var(--ink);
+  color: #fff;
+  padding: 14px 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.live-dot {
+  width: 8px; height: 8px;
+  background: #FF3B30;
+  border-radius: 50%;
+  display: inline-block;
+  animation: pulseLive 1.6s ease infinite;
+}
+@keyframes pulseLive {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+.live-grid {
+  display: grid;
+  grid-template-columns: 1fr 240px;
+  min-height: 320px;
+}
+.transcript {
+  padding: 22px 20px;
+  border-right: 1px solid var(--rule);
+  background: #FBFAF7;
+}
+.transcript-line {
+  font-family: 'Newsreader', Georgia, serif;
+  font-style: italic;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin-bottom: 12px;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 500ms ease, transform 500ms ease;
+}
+.live-mockup.in .transcript-line:nth-of-type(1) { opacity: 1; transform: none; transition-delay: 200ms; }
+.live-mockup.in .transcript-line:nth-of-type(2) { opacity: 1; transform: none; transition-delay: 1100ms; }
+.live-mockup.in .transcript-line:nth-of-type(3) { opacity: 1; transform: none; transition-delay: 2000ms; }
+
+.live-side {
+  padding: 16px;
+  background: var(--paper);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.note-card, .quiz-card, .alert-card {
+  background: var(--paper-card);
+  border: 1px solid var(--rule);
+  padding: 12px;
+  font-size: 12.5px;
+  line-height: 1.4;
+  border-radius: 5px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 600ms ease, transform 600ms ease;
+}
+.live-mockup.in .note-card { opacity: 1; transform: translateY(0); transition-delay: 1500ms; }
+.live-mockup.in .quiz-card { opacity: 1; transform: translateY(0); transition-delay: 2400ms; border-color: var(--signal); }
+.live-mockup.in .alert-card { opacity: 1; transform: translateY(0); transition-delay: 3200ms; border-color: #C77700; background: rgba(199, 119, 0, 0.05); }
+.tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 6px;
+  display: block;
+}
+.quiz-card .tag { color: var(--signal); }
+.alert-card .tag { color: #C77700; }
+
+/* Mockup scenes alternate background */
+.mockup-scene { padding: 130px 32px; }
+.mockup-scene.alt { background: #F4F2EE; }
+
+/* ===== PERSONA SECTIONS ===== */
+.persona-intro {
+  text-align: center;
+  padding: 160px 32px 40px;
+  min-height: auto;
+  align-items: flex-start;
+}
+.persona-intro h2 { margin-bottom: 18px; }
+
+/* College / 3-rooms illustration */
+.college-illustration {
+  width: 100%;
+  max-width: 1000px;
+  margin: 32px auto 0;
+  display: block;
+  opacity: 0;
+  animation: fadeUp 800ms ease-out 600ms forwards;
+}
+.college-svg { width: 100%; height: auto; display: block; }
+
+.college-svg .room-rect { fill: #FBFAF7; stroke: #051C2C; stroke-width: 1.5; }
+.college-svg .room-header { fill: #051C2C; }
+.college-svg .room-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  fill: #fff;
+}
+.college-svg .persona-tag {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+  font-size: 14px;
+  fill: #051C2C;
+}
+.college-svg .birbal-line {
+  stroke: var(--signal);
+  stroke-width: 2;
+  stroke-dasharray: 5 4;
+  fill: none;
+}
+.college-svg .birbal-disc {
+  fill: var(--signal);
+}
+.college-svg .birbal-disc-text {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+  font-size: 14px;
+  fill: #fff;
+}
+
+.persona-stages {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+.persona-pill {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  background: var(--paper-card);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.persona-arrow {
+  color: var(--signal);
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 22px;
+  font-style: italic;
+}
+.avatar {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: var(--paper-card);
+  border: 1px solid var(--rule);
+}
+.avatar svg { width: 100%; height: 100%; display: block; }
+
+/* Persona section header (centered stack) */
+.persona-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 32px;
+  text-align: center;
+}
+.persona-header .avatar { width: 72px; height: 72px; }
+.persona-meta { text-align: center; }
+.persona-meta .role {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--signal);
+  margin-bottom: 6px;
+}
+.persona-meta .name {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 30px;
+  font-style: italic;
+  color: var(--ink);
+  line-height: 1.1;
+}
+
+/* Persona heading line (h3 with blue word) */
+.persona-line {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: clamp(28px, 3.6vw, 44px);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.2;
+  color: var(--ink);
+  margin: 0 auto 36px;
+  text-align: center;
+  max-width: 760px;
+}
+.persona-line em { color: var(--signal); font-style: italic; }
+
+/* Constrain mockups + center */
+.mockup-visual { max-width: 780px; margin: 0 auto; }
+
+/* Tab 1 — 3-up persona cards */
+.personas-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.persona-card {
+  text-align: center;
+  padding: 36px 24px 32px;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  background: var(--paper-card);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: border-color 200ms ease, transform 200ms ease;
+}
+.persona-card:hover { border-color: var(--ink); transform: translateY(-2px); }
+.persona-card .avatar {
+  width: 72px;
+  height: 72px;
+  margin-bottom: 14px;
+}
+.persona-card .role {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--signal);
+  margin-bottom: 6px;
+}
+.persona-card .name {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 22px;
+  font-style: italic;
+  color: var(--ink);
+  margin-bottom: 22px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--rule);
+  width: 100%;
+}
+.persona-card .persona-line {
+  font-size: 22px;
+  max-width: none;
+  margin: 0;
+  text-align: center;
+  line-height: 1.3;
+}
+
+.problem-summary {
+  text-align: center;
+  background: var(--paper);
+  color: var(--ink);
+  padding: 64px 40px;
+  max-width: 1100px;
+  margin: 56px auto 0;
+}
+.problem-summary .ps-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+.problem-summary .ps-eyebrow::before,
+.problem-summary .ps-eyebrow::after {
+  content: ""; width: 28px; height: 1px; background: var(--signal);
+}
+.problem-summary h2 {
+  color: var(--ink);
+  margin-bottom: 14px;
+  font-size: clamp(28px, 4vw, 46px);
+}
+.problem-summary h2 em { color: var(--signal); font-style: italic; }
+.problem-summary .ps-sub {
+  color: var(--ink-mute);
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+  font-size: 18px;
+  margin-bottom: 36px;
+}
+.problem-summary .next-link {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #fff;
+  text-decoration: none;
+  border: 1px solid var(--signal);
+  background: var(--signal);
+  padding: 14px 22px;
+  display: inline-block;
+  transition: all 200ms ease;
+}
+.problem-summary .next-link:hover {
+  background: transparent;
+  color: var(--signal);
+}
+
+@media (max-width: 720px) {
+  .personas-grid { grid-template-columns: 1fr; gap: 14px; }
+  .problem-summary { padding: 48px 24px; }
+}
+
+/* Two-stage Teacher section */
+.teacher-stage {
+  margin-bottom: 64px;
+}
+.teacher-stage:last-of-type { margin-bottom: 0; }
+
+/* ===== EXPANDED LIVE MOCKUP ===== */
+.live-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+}
+.live-stats .stat-item {
+  padding: 12px 16px;
+  border-right: 1px solid var(--rule);
+  text-align: left;
+}
+.live-stats .stat-item:last-child { border-right: none; }
+.live-stats .stat-item.alert { background: rgba(199, 119, 0, 0.05); }
+.live-stats .stat-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  display: block;
+  margin-bottom: 4px;
+}
+.live-stats .stat-value {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: 14px;
+  color: var(--ink);
+  font-weight: 500;
+}
+.live-stats .stat-item.alert .stat-value { color: #C77700; }
+.live-stats .stat-value strong { font-size: 18px; font-weight: 600; }
+
+.rec-pill {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 59, 48, 0.18);
+  color: #FF6B5C;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  font-family: 'JetBrains Mono', monospace;
+}
+.rec-pill::before {
+  content: ""; width: 5px; height: 5px;
+  background: #FF3B30; border-radius: 50%;
+  animation: pulseLive 1.6s ease infinite;
+}
+
+.capability-card {
+  background: var(--paper-card);
+  border: 1px solid var(--rule);
+  padding: 10px 12px;
+  border-radius: 5px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 12px;
+  line-height: 1.4;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 600ms ease, transform 600ms ease;
+}
+.live-mockup.in .capability-card:nth-of-type(1) { opacity: 1; transform: none; transition-delay: 1500ms; }
+.live-mockup.in .capability-card:nth-of-type(2) { opacity: 1; transform: none; transition-delay: 2000ms; }
+.live-mockup.in .capability-card:nth-of-type(3) { opacity: 1; transform: none; transition-delay: 2500ms; }
+.live-mockup.in .capability-card:nth-of-type(4) { opacity: 1; transform: none; transition-delay: 3000ms; }
+.live-mockup.in .capability-card:nth-of-type(5) { opacity: 1; transform: none; transition-delay: 3500ms; }
+.capability-card.alert { border-color: #C77700; background: rgba(199, 119, 0, 0.05); }
+.capability-card.signal { border-color: var(--signal); background: rgba(34, 81, 255, 0.05); }
+.capability-card .cap-icon {
+  width: 22px; height: 22px;
+  background: var(--ink);
+  color: #fff;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  flex-shrink: 0;
+  font-family: 'JetBrains Mono', monospace;
+}
+.capability-card.alert .cap-icon { background: #C77700; }
+.capability-card.signal .cap-icon { background: var(--signal); }
+.capability-card .cap-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 3px;
+}
+.capability-card.alert .cap-title { color: #C77700; }
+.capability-card.signal .cap-title { color: var(--signal); }
+.capability-card .cap-desc {
+  font-family: 'Newsreader', Georgia, serif;
+  color: var(--ink);
+  line-height: 1.4;
+}
+
+@media (max-width: 720px) {
+  .live-stats { grid-template-columns: 1fr 1fr; }
+  .live-stats .stat-item:nth-child(2) { border-right: none; }
+}
+
+/* ===== Inline persona header (for left-right layout) ===== */
+.persona-header-inline {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+.persona-header-inline .avatar { width: 56px; height: 56px; }
+.persona-header-inline .role {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--signal);
+  margin-bottom: 4px;
+}
+.persona-header-inline .name {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 24px;
+  font-style: italic;
+  color: var(--ink);
+  line-height: 1;
+}
+.mockup-text .persona-line {
+  text-align: left;
+  margin: 0;
+  font-size: clamp(26px, 3.4vw, 38px);
+  max-width: 480px;
+}
+.teacher-stage { margin-bottom: 100px; }
+.teacher-stage:last-of-type { margin-bottom: 0; }
+
+/* ===== PPT UPLOAD MOCKUP — slide preview inside chat ===== */
+.ppt-attach {
+  display: inline-block;
+  background: rgba(255,255,255,0.18);
+  border-radius: 6px;
+  padding: 8px;
+  max-width: 240px;
+}
+.ppt-slide {
+  background: #fff;
+  border-radius: 4px;
+  padding: 10px 12px;
+  text-align: left;
+  font-family: 'Newsreader', Georgia, serif;
+  margin-bottom: 6px;
+}
+.ppt-slide .ppt-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.18em;
+  color: var(--ink-mute);
+  margin-bottom: 6px;
+}
+.ppt-slide .ppt-title {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 14px;
+  font-style: italic;
+  color: var(--ink);
+  margin-bottom: 6px;
+  line-height: 1.2;
+}
+.ppt-slide .ppt-bul {
+  font-size: 10px;
+  color: var(--ink-soft);
+  line-height: 1.4;
+  margin-bottom: 1px;
+}
+.ppt-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  color: rgba(255,255,255,0.85);
+  padding: 0 4px;
+}
+
+/* ===== EDUCOMP MEETING MOCKUP ===== */
+.meet-mockup {
+  background: #0F1A26;
+  border: 1px solid var(--ink);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 28px 56px -32px rgba(5, 28, 44, 0.25);
+}
+.meet-header {
+  background: #051018;
+  color: #fff;
+  padding: 12px 18px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.meet-body {
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  min-height: 320px;
+}
+.meet-tiles {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 6px;
+  padding: 10px;
+  background: #0F1A26;
+}
+.m-tile {
+  background: #1A2A3A;
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 8px;
+}
+.m-tile.m-faculty { grid-row: span 2; background: #233447; padding: 14px; justify-content: space-between; }
+.m-tile.m-birbal { background: linear-gradient(135deg, #1F3A5F, #2251FF); }
+.m-tile .tile-label {
+  position: absolute;
+  bottom: 6px; left: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.85);
+  text-transform: uppercase;
+}
+.m-tile.m-birbal .tile-label { color: #fff; }
+.m-tile .tile-mini {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+  font-size: 18px;
+  color: rgba(255,255,255,0.7);
+}
+.meet-slide {
+  background: #fff;
+  border-radius: 4px;
+  padding: 12px 14px;
+  text-align: left;
+  margin-bottom: 24px;
+}
+.meet-slide .ms-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.18em;
+  color: var(--ink-mute);
+  margin-bottom: 6px;
+}
+.meet-slide .ms-title {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--ink);
+  line-height: 1.2;
+}
+.birbal-pulse {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: 4px;
+}
+.birbal-pulse span {
+  width: 6px; height: 6px;
+  background: #fff;
+  border-radius: 50%;
+  animation: pulseDot 1.4s ease infinite;
+}
+.birbal-pulse span:nth-child(2) { animation-delay: 0.2s; }
+.birbal-pulse span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes pulseDot {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+
+.meet-side {
+  background: #FBFAF7;
+  padding: 16px;
+  border-left: 1px solid var(--rule);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.meet-side .side-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 4px;
+}
+.activity-item {
+  background: #fff;
+  border: 1px solid var(--rule);
+  padding: 10px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  color: var(--ink);
+  line-height: 1.4;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 600ms ease, transform 600ms ease;
+}
+.meet-mockup.in .activity-item:nth-of-type(1) { opacity: 1; transform: none; transition-delay: 1500ms; }
+.meet-mockup.in .activity-item:nth-of-type(2) { opacity: 1; transform: none; transition-delay: 2100ms; }
+.meet-mockup.in .activity-item:nth-of-type(3) { opacity: 1; transform: none; transition-delay: 2700ms; }
+.meet-mockup.in .activity-item:nth-of-type(4) { opacity: 1; transform: none; transition-delay: 3300ms; }
+.activity-item.alert { background: rgba(199, 119, 0, 0.06); border-color: #C77700; }
+.activity-item.signal { background: rgba(34, 81, 255, 0.05); border-color: var(--signal); }
+.activity-item .ai-icon {
+  font-family: 'JetBrains Mono', monospace;
+  width: 18px; height: 18px;
+  background: var(--ink); color: #fff;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  flex-shrink: 0;
+}
+.activity-item.alert .ai-icon { background: #C77700; }
+.activity-item.signal .ai-icon { background: var(--signal); }
+
+/* ===== QUIZ GENERATION MOCKUP ===== */
+.quiz-mockup {
+  background: var(--paper-card);
+  border: 1px solid var(--ink);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 28px 56px -32px rgba(5, 28, 44, 0.25);
+}
+.quiz-header {
+  background: var(--ink);
+  color: #fff;
+  padding: 14px 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.quiz-header .auto-pill {
+  background: var(--signal);
+  color: #fff;
+  padding: 3px 8px;
+  border-radius: 3px;
+  font-size: 8px;
+  letter-spacing: 0.14em;
+}
+.quiz-body {
+  padding: 22px;
+  background: #FBFAF7;
+}
+.quiz-q {
+  background: var(--paper-card);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 16px 18px;
+  margin-bottom: 14px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 600ms ease, transform 600ms ease;
+}
+.quiz-mockup.in .quiz-q:nth-of-type(1) { opacity: 1; transform: none; transition-delay: 300ms; }
+.quiz-mockup.in .quiz-q:nth-of-type(2) { opacity: 1; transform: none; transition-delay: 900ms; }
+.quiz-mockup.in .quiz-q:nth-of-type(3) { opacity: 1; transform: none; transition-delay: 1500ms; }
+.q-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: var(--signal);
+  margin-bottom: 6px;
+}
+.q-text {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: 14px;
+  color: var(--ink);
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+.q-opt {
+  font-size: 13px;
+  color: var(--ink-soft);
+  padding: 5px 0;
+  display: flex;
+  gap: 8px;
+}
+.q-opt .opt-marker {
+  font-family: 'JetBrains Mono', monospace;
+  width: 14px;
+  color: var(--ink-mute);
+}
+.q-opt.correct { color: var(--ink); font-weight: 500; }
+.q-opt.correct .opt-marker { color: var(--signal); }
+.q-opt.correct::after { content: " ✓"; color: var(--signal); margin-left: 4px; font-weight: 600; }
+.q-source {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--rule);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--ink-mute);
+}
+
+@media (max-width: 900px) {
+  .meet-body { grid-template-columns: 1fr; }
+  .meet-tiles { grid-template-columns: 1fr 1fr; }
+  .m-tile.m-faculty { grid-row: auto; grid-column: span 2; }
+  .meet-side { border-left: none; border-top: 1px solid var(--rule); }
+}
+
+/* ===== DARK BG section pieces (now light) ===== */
+.cta-scene .eyebrow { color: rgba(255, 255, 255, 0.6); }
+.cta-scene .eyebrow::before, .cta-scene .eyebrow::after { background: var(--signal); }
+
+.capabilities-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
+  margin: 48px auto 0;
+  max-width: 880px;
+  text-align: left;
+}
+.cap-chip {
+  padding: 16px 18px;
+  border: 1px solid var(--rule);
+  background: var(--paper-card);
+  border-radius: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: border-color 200ms ease, transform 200ms ease;
+}
+.cap-chip:hover { border-color: var(--signal); transform: translateY(-2px); }
+.cap-chip .dot {
+  width: 6px; height: 6px;
+  background: var(--signal);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ===== Summary table — everything Birbal does ===== */
+.summary-table {
+  margin: 56px auto 0;
+  max-width: 1080px;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--paper-card);
+}
+.sum-row {
+  display: grid;
+  grid-template-columns: 170px 1fr 160px;
+  gap: 24px;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--rule);
+  align-items: center;
+  text-align: left;
+}
+.sum-row:last-child { border-bottom: none; }
+.sum-row.header {
+  background: #F4F2EE;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding: 14px 24px;
+}
+.sum-row .stage {
+  display: inline-block;
+}
+.sum-row .stage-pill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--signal);
+  background: rgba(34, 81, 255, 0.08);
+  padding: 5px 10px;
+  border-radius: 3px;
+  display: inline-block;
+}
+.sum-row .what {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: 15px;
+  color: var(--ink);
+  line-height: 1.5;
+}
+.sum-row .what strong { color: var(--signal); font-weight: 600; }
+.sum-row .who {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  text-align: right;
+}
+.sum-row:hover { background: #FBFAF7; }
+
+@media (max-width: 720px) {
+  .sum-row { grid-template-columns: 1fr; gap: 8px; padding: 18px 18px; }
+  .sum-row.header { display: none; }
+  .sum-row .who { text-align: left; }
+}
+
+/* Mini timeline (contact "what happens next") */
+.next-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin: 56px auto 0;
+  max-width: 820px;
+}
+.next-step {
+  text-align: center;
+  padding: 22px 14px;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: var(--paper-card);
+}
+.next-step .ns-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--signal);
+  margin-bottom: 8px;
+}
+.next-step .ns-text {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--ink);
+  line-height: 1.3;
+}
+
+@media (max-width: 720px) {
+  .capabilities-grid { grid-template-columns: 1fr; gap: 10px; }
+  .next-steps { grid-template-columns: 1fr 1fr; }
+}
+
+/* Before / After rows */
+.ba-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  margin-bottom: 36px;
+}
+.ba-row {
+  padding: 20px 24px;
+  border-left: 2px solid var(--rule);
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 0 4px 4px 0;
+}
+.ba-row.now {
+  border-left-color: var(--signal);
+  background: rgba(34, 81, 255, 0.05);
+}
+.ba-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 10px;
+}
+.ba-row.now .ba-tag { color: var(--signal); }
+.ba-row p {
+  text-align: left;
+  margin: 0;
+  font-size: 15.5px;
+  line-height: 1.55;
+  max-width: none;
+}
+
+/* Problem block (Tab 1 personas) */
+.problem-block {
+  max-width: 720px;
+}
+.problem-block h3 {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: clamp(28px, 3.6vw, 40px);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.15;
+  color: var(--ink);
+  margin-bottom: 18px;
+  text-align: left;
+}
+.problem-block h3 em { color: var(--signal); font-style: italic; }
+.problem-block p {
+  text-align: left;
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0;
+  max-width: none;
+  color: var(--ink-soft);
+}
+
+/* Improvements panel */
+.improvements {
+  margin-top: 64px;
+  padding: 32px 36px;
+  background: var(--ink);
+  color: #fff;
+  border-radius: 6px;
+}
+.improvements .imp-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--signal);
+  margin-bottom: 16px;
+}
+.improvements ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px 36px;
+}
+.improvements li {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 19px;
+  font-style: italic;
+  color: #fff;
+  padding-left: 24px;
+  position: relative;
+  line-height: 1.35;
+}
+.improvements li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--signal);
+  font-style: normal;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+@media (max-width: 900px) {
+  .improvements ul { grid-template-columns: 1fr; gap: 16px; }
+  .persona-stages { flex-direction: column; }
+  .persona-arrow { transform: rotate(90deg); }
+  .persona-header { flex-direction: column; align-items: flex-start; gap: 14px; }
+}
+
+@media (max-width: 900px) {
+  .mockup-grid, .mockup-grid.reverse { grid-template-columns: 1fr; gap: 36px; }
+  .mockup-grid.reverse .mockup-text { order: 0; }
+  .comparison { grid-template-columns: 1fr; }
+  .comp-divider { padding: 6px 0; }
+  .live-grid { grid-template-columns: 1fr; }
+  .transcript { border-right: none; border-bottom: 1px solid var(--rule); }
+  .dash-mockup { grid-template-columns: 1fr; }
+  .dash-side { padding: 16px 18px; display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+  .dash-side .dash-logo { margin-bottom: 0; }
+  .dash-side .dash-nav { padding: 0; }
+}
+
+@media (max-width: 720px) {
+  /* Header / tabs — compact */
+  .top-header { padding: 8px 12px 0; gap: 8px; }
+  .top-header .partner-logo { height: 28px; }
+  .top-header .birbal-mark { font-size: 18px; }
+  .tab-nav { gap: 0; }
+  .tab { padding: 8px 10px; font-size: 9px; letter-spacing: 0.06em; }
+  .tab .tab-num { display: none; }
+  .tab.active::after { width: 20px; }
+
+  /* Generic scene */
+  .scene { padding: 60px 18px; }
+
+  /* Hero */
+  .hero { padding: 130px 18px 40px; min-height: auto; }
+  .hero h1 { font-size: 36px; line-height: 1.05; margin-top: 14px; margin-bottom: 18px; }
+  .drift-illustration {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 -18px;
+    padding: 0 18px 8px;
+  }
+  .drift-svg { min-width: 600px; }
+
+  /* Tab 1 personas grid */
+  .personas-grid { grid-template-columns: 1fr; gap: 14px; }
+  .persona-card { padding: 28px 20px 24px; }
+  .persona-card .persona-line { font-size: 20px; }
+  .problem-summary { padding: 48px 20px; margin-top: 40px; }
+  .problem-summary h2 { font-size: 28px; }
+  .problem-summary .ps-sub { font-size: 16px; }
+
+  /* Tab 2 intro + college illustration */
+  .persona-intro { padding: 130px 18px 30px; }
+  .persona-intro h2 { font-size: 30px; line-height: 1.1; }
+  .college-illustration {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 24px -18px 0;
+    padding: 0 18px 8px;
+  }
+  .college-svg { min-width: 720px; }
+
+  /* Tab 2 persona sections */
+  .mockup-scene { padding: 60px 18px; }
+  .teacher-stage { margin-bottom: 60px; }
+  .mockup-text .persona-line {
+    text-align: center;
+    max-width: none;
+    font-size: 24px;
+    line-height: 1.2;
+  }
+  .persona-header-inline {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .persona-header-inline .avatar { width: 56px; height: 56px; }
+
+  /* Mockups */
+  .chat-msg { font-size: 13px; max-width: 88%; }
+  .chat-header { font-size: 9px; padding: 12px 14px; }
+  .ppt-attach { max-width: 200px; }
+  .live-stats { grid-template-columns: 1fr 1fr; }
+  .live-stats .stat-item { padding: 10px 12px; }
+  .live-stats .stat-item:nth-child(2) { border-right: none; }
+  .live-side, .meet-side { padding: 12px; }
+  .meet-tiles { grid-template-columns: 1fr 1fr; gap: 4px; padding: 8px; }
+  .m-tile { min-height: 60px; padding: 6px; }
+  .m-tile.m-faculty { grid-row: auto; grid-column: span 2; min-height: 100px; }
+  .meet-slide { padding: 8px 10px; margin-bottom: 8px; }
+  .meet-slide .ms-title { font-size: 12px; }
+  .quiz-q { padding: 12px 14px; margin-bottom: 10px; }
+  .q-text { font-size: 13px; }
+  .q-opt { font-size: 12px; }
+
+  /* Summary table */
+  .sum-row { grid-template-columns: 1fr; gap: 6px; padding: 16px 18px; }
+  .sum-row.header { display: none; }
+  .sum-row .who { text-align: left; font-size: 9px; }
+  .sum-row .what { font-size: 14px; }
+
+  /* Contact CTA */
+  .cta-buttons { flex-direction: column; align-items: stretch; gap: 14px; }
+  .cta-button { justify-content: center; }
+  .cta-secondary { text-align: center; display: block; }
+
+  /* Footer */
+  footer {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding: 24px 18px;
+    gap: 14px;
+  }
+  footer .f-left { justify-content: center; }
+  footer .f-right { text-align: center; }
+
+  /* Legacy (defensive) */
+  .diagram-broken { grid-template-columns: 1fr; gap: 16px; }
+  .connector { display: none; }
+  .diagram-broken .node:nth-child(n) { transform: none; opacity: 1; }
+  .timeline::before { left: 60px; }
+  .t-step { grid-template-columns: 60px 1fr; gap: 20px; }
+  .t-step::after { left: 56px; }
+  .offer { padding: 32px 24px; }
+  .offer-grid { grid-template-columns: 1fr; gap: 24px; }
+}
+
+::selection { background: var(--signal); color: #fff; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .word, .reveal, .hero .lede, .hero .scroll-cue { opacity: 1; transform: none; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- SVG face symbols (defined once, used everywhere) -->
+<svg width="0" height="0" style="position:absolute;" aria-hidden="true">
+  <defs>
+    <!-- Ms. Mehta — Creator (woman, glasses, hair tied back) -->
+    <symbol id="face-creator" viewBox="0 0 64 64">
+      <circle cx="32" cy="32" r="32" fill="#EFE0C7"/>
+      <ellipse cx="32" cy="36" rx="22" ry="24" fill="#3A2818"/>
+      <ellipse cx="32" cy="34" rx="14" ry="16" fill="#EAC9A2"/>
+      <path d="M 18 24 Q 32 19 46 24 Q 44 28 32 27 Q 20 28 18 24 Z" fill="#3A2818"/>
+      <circle cx="25" cy="34" r="5" fill="#FFFFFF" fill-opacity="0.5" stroke="#051C2C" stroke-width="1.2"/>
+      <circle cx="39" cy="34" r="5" fill="#FFFFFF" fill-opacity="0.5" stroke="#051C2C" stroke-width="1.2"/>
+      <line x1="30" y1="34" x2="34" y2="34" stroke="#051C2C" stroke-width="1"/>
+      <circle cx="25" cy="34" r="1.4" fill="#051C2C"/>
+      <circle cx="39" cy="34" r="1.4" fill="#051C2C"/>
+      <path d="M 28 44 Q 32 46.5 36 44" stroke="#051C2C" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+    </symbol>
+
+    <!-- Mr. Sharma — Teacher (man, beard, short hair) -->
+    <symbol id="face-teacher" viewBox="0 0 64 64">
+      <circle cx="32" cy="32" r="32" fill="#D4DDE5"/>
+      <ellipse cx="32" cy="34" rx="14" ry="16" fill="#D49B70"/>
+      <path d="M 18 26 Q 18 14 32 13 Q 46 14 46 26 L 46 30 Q 32 26 18 30 Z" fill="#1F1810"/>
+      <path d="M 19 38 Q 19 48 32 50 Q 45 48 45 38 Q 41 44 32 44 Q 23 44 19 38 Z" fill="#1F1810"/>
+      <circle cx="25" cy="33" r="1.5" fill="#051C2C"/>
+      <circle cx="39" cy="33" r="1.5" fill="#051C2C"/>
+      <path d="M 25 40 Q 32 42.5 39 40" stroke="#1F1810" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+    </symbol>
+
+    <!-- Aarav — Student (young man, headphones, messy hair) -->
+    <symbol id="face-student" viewBox="0 0 64 64">
+      <circle cx="32" cy="32" r="32" fill="#D8C8B5"/>
+      <ellipse cx="32" cy="36" rx="14" ry="15" fill="#C49070"/>
+      <path d="M 18 28 Q 16 14 25 12 Q 32 8 39 12 Q 48 14 46 28 Q 43 22 36 23 Q 32 18 28 23 Q 21 22 18 28 Z" fill="#0F0908"/>
+      <circle cx="25" cy="34" r="1.5" fill="#051C2C"/>
+      <circle cx="39" cy="34" r="1.5" fill="#051C2C"/>
+      <path d="M 12 30 Q 12 16 32 14 Q 52 16 52 30" stroke="#051C2C" stroke-width="2" fill="none"/>
+      <ellipse cx="12" cy="32" rx="3" ry="4" fill="#051C2C"/>
+      <ellipse cx="52" cy="32" rx="3" ry="4" fill="#051C2C"/>
+      <path d="M 27 43 Q 32 46 37 43" stroke="#051C2C" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="top-header">
+  <div class="header-mark">
+    <span class="birbal-mark">Birbal</span>
+    <span class="x">×</span>
+    <img class="partner-logo" src="assets/mu_logo.png" alt="Masters' Union">
+  </div>
+  <nav class="tab-nav" role="tablist">
+    <button class="tab active" data-tab="what" role="tab"><span class="tab-num">01</span>What we fix</button>
+    <button class="tab" data-tab="how" role="tab"><span class="tab-num">02</span>How we fix</button>
+    <button class="tab" data-tab="contact" role="tab"><span class="tab-num">03</span>How to contact</button>
+  </nav>
+</header>
+
+<div class="progress"><div class="progress-bar" id="bar"></div></div>
+
+<!-- ============ TAB 1: WHAT WE FIX ============ -->
+<div class="tab-panel active" id="tab-what" role="tabpanel">
+
+<!-- HERO -->
+<section class="scene hero">
+  <div class="container">
+
+    <div class="drift-illustration">
+      <svg class="drift-svg" viewBox="0 0 940 300" xmlns="http://www.w3.org/2000/svg">
+        <!-- Water lines -->
+        <path class="water-line" d="M 0 220 Q 235 214 470 220 T 940 220"/>
+        <path class="water-line w2" d="M 0 240 Q 235 235 470 240 T 940 240"/>
+        <path class="water-line w3" d="M 0 260 Q 235 255 470 260 T 940 260"/>
+
+        <!-- Intended (straight) path with label -->
+        <line class="intended-path" x1="170" y1="195" x2="770" y2="195"/>
+        <text class="intended-label" x="470" y="188" text-anchor="middle">INTENDED PATH</text>
+
+        <!-- Actual drift path — wavy, ends on the LEARNT island (drifted, not the goal) -->
+        <path class="drift-path" d="M 170 180 Q 230 100 310 200 Q 390 285 470 140 Q 530 210 485 248"/>
+
+        <!-- Gap marker between drift end (LEARNT) and destination (INTENDED) -->
+        <line class="gap-line" x1="555" y1="252" x2="755" y2="222"/>
+        <text class="gap-label" x="655" y="230" text-anchor="middle">— the gap —</text>
+
+        <!-- Boat on drift path -->
+        <g class="drift-boat">
+          <path d="M -11 4 L 11 4 L 8 11 L -8 11 Z" fill="#051C2C"/>
+          <line x1="0" y1="4" x2="0" y2="-14" stroke="#051C2C" stroke-width="1.5"/>
+          <path d="M 0 -14 L 9 -2 L 0 -2 Z" fill="#2251FF"/>
+        </g>
+
+        <!-- Left island: SYLLABUS -->
+        <g>
+          <ellipse cx="100" cy="248" rx="92" ry="5" fill="#2251FF" opacity="0.08"/>
+          <path d="M 24 235 Q 60 225 100 224 Q 140 225 176 235 L 176 240 Q 100 248 24 240 Z" fill="#F0E2BE"/>
+          <path d="M 42 230 C 50 198 75 184 100 184 C 125 184 150 198 158 230 Z" fill="#D9C690"/>
+          <ellipse cx="100" cy="200" rx="38" ry="10" fill="#A7B883" opacity="0.55"/>
+          <g transform="translate(72, 208)" fill="none" stroke="#051C2C" stroke-width="1.4" stroke-linecap="round">
+            <path d="M 0 0 Q 1 -10 0 -22"/>
+            <path d="M 0 -22 Q -8 -25 -16 -21"/>
+            <path d="M 0 -22 Q -7 -30 -10 -36"/>
+            <path d="M 0 -22 Q 1 -33 -2 -38"/>
+            <path d="M 0 -22 Q 9 -30 12 -36"/>
+            <path d="M 0 -22 Q 8 -25 16 -21"/>
+          </g>
+          <g transform="translate(122, 218)">
+            <rect x="-7" y="-12" width="14" height="13" fill="#051C2C"/>
+            <rect x="-9" y="-15" width="18" height="3" fill="#051C2C"/>
+            <circle cx="0" cy="-20" r="3.5" fill="#051C2C"/>
+          </g>
+          <text class="island-label" x="100" y="278" text-anchor="middle">SYLLABUS</text>
+        </g>
+
+        <!-- Middle island: LEARNT — small drifted sandbar where students actually end up -->
+        <g>
+          <ellipse cx="485" cy="275" rx="64" ry="4" fill="#2251FF" opacity="0.08"/>
+          <path d="M 430 268 Q 460 260 485 259 Q 510 260 540 268 L 540 272 Q 485 278 430 272 Z" fill="#F0E2BE"/>
+          <path d="M 450 265 Q 470 252 485 251 Q 500 252 520 265 Z" fill="#DCC994"/>
+          <text x="485" y="246" text-anchor="middle" font-family="Instrument Serif, Georgia, serif" font-size="20" font-style="italic" fill="#6B7A89">?</text>
+          <text class="island-label island-mid" x="485" y="294" text-anchor="middle">LEARNT</text>
+        </g>
+
+        <!-- Right island: INTENDED — destination, never reached -->
+        <g>
+          <ellipse cx="840" cy="248" rx="92" ry="5" fill="#2251FF" opacity="0.08"/>
+          <path d="M 764 235 Q 800 225 840 224 Q 880 225 916 235 L 916 240 Q 840 248 764 240 Z" fill="#F0E2BE"/>
+          <path d="M 782 230 C 790 198 815 184 840 184 C 865 184 890 198 898 230 Z" fill="#D9C690"/>
+          <ellipse cx="840" cy="200" rx="38" ry="10" fill="#A7B883" opacity="0.55"/>
+          <g transform="translate(810, 208)" fill="none" stroke="#051C2C" stroke-width="1.4" stroke-linecap="round">
+            <path d="M 0 0 Q 1 -10 0 -22"/>
+            <path d="M 0 -22 Q -8 -25 -16 -21"/>
+            <path d="M 0 -22 Q -7 -30 -10 -36"/>
+            <path d="M 0 -22 Q 1 -33 -2 -38"/>
+            <path d="M 0 -22 Q 9 -30 12 -36"/>
+            <path d="M 0 -22 Q 8 -25 16 -21"/>
+          </g>
+          <g transform="translate(862, 212)">
+            <polygon points="-14,2 14,2 0,-8" fill="#2251FF"/>
+            <rect x="-10" y="2" width="20" height="11" fill="#2251FF"/>
+            <line x1="10" y1="2" x2="16" y2="12" stroke="#2251FF" stroke-width="1.5"/>
+            <circle cx="16" cy="14" r="2" fill="#2251FF"/>
+          </g>
+          <text class="island-label" x="840" y="278" text-anchor="middle">INTENDED</text>
+        </g>
+      </svg>
+    </div>
+
+    <h1>
+      <span class="word" style="animation-delay: 100ms">From</span>
+      <span class="word" style="animation-delay: 180ms">syllabus</span>
+      <span class="word" style="animation-delay: 260ms">to</span>
+      <span class="word" style="animation-delay: 340ms">classroom,</span>
+      <br>
+      <span class="word" style="animation-delay: 420ms">without</span>
+      <span class="word" style="animation-delay: 500ms">the</span>
+      <span class="word italic" style="animation-delay: 580ms">drift</span><span class="word" style="animation-delay: 660ms">.</span>
+    </h1>
+  </div>
+</section>
+
+<!-- ===== ALL THREE PERSONAS + CTA (single section) ===== -->
+<section class="scene" style="padding: 80px 32px 100px;">
+  <div class="container-wide">
+    <div class="personas-grid">
+      <div class="persona-card reveal">
+        <div class="avatar"><svg viewBox="0 0 64 64"><use href="#face-creator"/></svg></div>
+        <div class="role">Persona 01 · The Creator</div>
+        <div class="name">Ms. Mehta</div>
+        <h3 class="persona-line">Designs the course. <em>Hopes</em> it lands.</h3>
+      </div>
+
+      <div class="persona-card reveal delay-1">
+        <div class="avatar"><svg viewBox="0 0 64 64"><use href="#face-teacher"/></svg></div>
+        <div class="role">Persona 02 · The Teacher</div>
+        <div class="name">Mr. Sharma</div>
+        <h3 class="persona-line">Reads the PDF. <em>Guesses</em> the rest.</h3>
+      </div>
+
+      <div class="persona-card reveal delay-2">
+        <div class="avatar"><svg viewBox="0 0 64 64"><use href="#face-student"/></svg></div>
+        <div class="role">Persona 03 · The Student</div>
+        <div class="name">Aarav</div>
+        <h3 class="persona-line">Sits through class. <em>Wonders</em> what to focus on.</h3>
+      </div>
+    </div>
+
+    <div class="problem-summary reveal delay-3">
+      <div class="ps-eyebrow">The cost</div>
+      <h2>A whole semester of <em>silent</em> drift.</h2>
+      <div class="ps-sub">Times every course. Every term.</div>
+      <a href="#" class="next-link next-tab" data-next="how">See how we fix it →</a>
+    </div>
+  </div>
+</section>
+
+</div>
+<!-- ============ /TAB 1 ============ -->
+
+
+<!-- ============ TAB 2: HOW WE FIX ============ -->
+<div class="tab-panel" id="tab-how" role="tabpanel">
+
+<!-- INTRO -->
+<section class="scene persona-intro">
+  <div class="container-wide">
+    <div class="eyebrow reveal">How we fix it</div>
+    <h2 class="reveal delay-1">Three people. One <em>connected</em> loop.</h2>
+
+    <div class="college-illustration">
+      <svg class="college-svg" viewBox="0 0 1000 250" xmlns="http://www.w3.org/2000/svg">
+
+        <!-- ROOM 1: Office (Creator) -->
+        <g transform="translate(20, 20)">
+          <rect class="room-rect" x="0" y="22" width="240" height="160" rx="4"/>
+          <rect class="room-header" x="0" y="0" width="240" height="22" rx="4"/>
+          <rect class="room-header" x="0" y="14" width="240" height="8"/>
+          <text class="room-label" x="120" y="14" text-anchor="middle">OFFICE</text>
+
+          <!-- Desk -->
+          <rect x="50" y="135" width="140" height="5" fill="#7A5A3F"/>
+          <rect x="55" y="140" width="4" height="32" fill="#7A5A3F"/>
+          <rect x="181" y="140" width="4" height="32" fill="#7A5A3F"/>
+
+          <!-- Laptop with Birbal screen -->
+          <path d="M 95 135 L 145 135 L 142 110 L 98 110 Z" fill="#1F1F1F"/>
+          <rect x="100" y="113" width="40" height="14" fill="#2251FF"/>
+          <text x="120" y="123" text-anchor="middle" fill="#fff" font-family="JetBrains Mono, monospace" font-size="6" letter-spacing="0.5px">birbal</text>
+
+          <!-- Creator (sitting) -->
+          <g transform="translate(120, 105)">
+            <rect x="-10" y="0" width="20" height="22" rx="2" fill="#2B3E4F"/>
+            <path d="M -12 -2 L 12 -2 L 14 6 L -14 6 Z" fill="#2251FF"/>
+            <circle cx="0" cy="-12" r="8" fill="#EAC9A2" stroke="#051C2C" stroke-width="1"/>
+            <ellipse cx="0" cy="-19" rx="6" ry="3" fill="#3A2818"/>
+            <path d="M -8 -14 Q 0 -16 8 -14 Q 6 -10 0 -11 Q -6 -10 -8 -14" fill="#3A2818"/>
+            <circle cx="-3" cy="-11" r="2" fill="none" stroke="#051C2C" stroke-width="0.8"/>
+            <circle cx="3" cy="-11" r="2" fill="none" stroke="#051C2C" stroke-width="0.8"/>
+          </g>
+
+          <!-- Window -->
+          <rect x="200" y="50" width="30" height="36" fill="#E5F0FF" stroke="#051C2C" stroke-width="1"/>
+          <line x1="200" y1="68" x2="230" y2="68" stroke="#051C2C" stroke-width="0.8"/>
+          <line x1="215" y1="50" x2="215" y2="86" stroke="#051C2C" stroke-width="0.8"/>
+
+          <text class="persona-tag" x="120" y="200" text-anchor="middle">Creator</text>
+        </g>
+
+        <!-- Birbal connector 1 → 2 -->
+        <g transform="translate(260, 100)">
+          <line class="birbal-line" x1="0" y1="20" x2="80" y2="20"/>
+          <circle class="birbal-disc" cx="40" cy="20" r="14"/>
+          <text class="birbal-disc-text" x="40" y="25" text-anchor="middle">B</text>
+        </g>
+
+        <!-- ROOM 2: Staffroom (Teacher) -->
+        <g transform="translate(360, 20)">
+          <rect class="room-rect" x="0" y="22" width="240" height="160" rx="4"/>
+          <rect class="room-header" x="0" y="0" width="240" height="22" rx="4"/>
+          <rect class="room-header" x="0" y="14" width="240" height="8"/>
+          <text class="room-label" x="120" y="14" text-anchor="middle">STAFFROOM</text>
+
+          <!-- Whiteboard -->
+          <rect x="20" y="40" width="70" height="50" fill="#fff" stroke="#051C2C" stroke-width="1.2"/>
+          <line x1="28" y1="56" x2="82" y2="56" stroke="#D3DADF"/>
+          <line x1="28" y1="68" x2="72" y2="68" stroke="#D3DADF"/>
+          <line x1="28" y1="80" x2="62" y2="80" stroke="#D3DADF"/>
+
+          <!-- Coffee cup -->
+          <rect x="105" y="80" width="14" height="12" fill="#FBFAF7" stroke="#051C2C" stroke-width="0.8"/>
+          <ellipse cx="112" cy="80" rx="7" ry="2" fill="#5A4030"/>
+
+          <!-- Desk -->
+          <rect x="105" y="135" width="120" height="5" fill="#7A5A3F"/>
+          <rect x="110" y="140" width="4" height="32" fill="#7A5A3F"/>
+          <rect x="216" y="140" width="4" height="32" fill="#7A5A3F"/>
+
+          <!-- PPT printout -->
+          <rect x="125" y="115" width="40" height="20" fill="#fff" stroke="#D3DADF"/>
+          <line x1="130" y1="121" x2="160" y2="121" stroke="#D3DADF" stroke-width="0.8"/>
+          <line x1="130" y1="126" x2="155" y2="126" stroke="#D3DADF" stroke-width="0.8"/>
+
+          <!-- Teacher figure -->
+          <g transform="translate(190, 105)">
+            <rect x="-10" y="0" width="20" height="22" rx="2" fill="#2B3E4F"/>
+            <path d="M -12 -2 L 12 -2 L 14 6 L -14 6 Z" fill="#2B3E4F"/>
+            <circle cx="0" cy="-12" r="8" fill="#D49B70" stroke="#051C2C" stroke-width="1"/>
+            <path d="M -8 -16 Q 0 -22 8 -16 L 8 -12 L -8 -12 Z" fill="#1F1810"/>
+            <path d="M -5 -8 Q 0 -4 5 -8" fill="#1F1810"/>
+          </g>
+
+          <text class="persona-tag" x="120" y="200" text-anchor="middle">Teacher</text>
+        </g>
+
+        <!-- Birbal connector 2 → 3 -->
+        <g transform="translate(600, 100)">
+          <line class="birbal-line" x1="0" y1="20" x2="80" y2="20"/>
+          <circle class="birbal-disc" cx="40" cy="20" r="14"/>
+          <text class="birbal-disc-text" x="40" y="25" text-anchor="middle">B</text>
+        </g>
+
+        <!-- ROOM 3: Classroom (Students) -->
+        <g transform="translate(700, 20)">
+          <rect class="room-rect" x="0" y="22" width="280" height="160" rx="4"/>
+          <rect class="room-header" x="0" y="0" width="280" height="22" rx="4"/>
+          <rect class="room-header" x="0" y="14" width="280" height="8"/>
+          <text class="room-label" x="140" y="14" text-anchor="middle">CLASSROOM</text>
+
+          <!-- Front board -->
+          <rect x="80" y="35" width="120" height="30" fill="#3A4F3A" stroke="#051C2C" stroke-width="1"/>
+          <text x="140" y="55" text-anchor="middle" fill="#fff" font-family="Instrument Serif, Georgia, serif" font-style="italic" font-size="11">Lecture 3</text>
+
+          <!-- Row 1 -->
+          <g transform="translate(0, 100)">
+            <rect x="30" y="0" width="60" height="6" fill="#7A5A3F"/>
+            <rect x="110" y="0" width="60" height="6" fill="#7A5A3F"/>
+            <rect x="190" y="0" width="60" height="6" fill="#7A5A3F"/>
+            <circle cx="60" cy="-8" r="6" fill="#C49070" stroke="#051C2C" stroke-width="0.8"/>
+            <path d="M 55 -11 Q 60 -16 65 -11" fill="#0F0908"/>
+            <circle cx="140" cy="-8" r="6" fill="#EAC9A2" stroke="#051C2C" stroke-width="0.8"/>
+            <ellipse cx="140" cy="-13" rx="5" ry="2" fill="#3A2818"/>
+            <circle cx="220" cy="-8" r="6" fill="#D49B70" stroke="#051C2C" stroke-width="0.8"/>
+            <path d="M 215 -11 Q 220 -16 225 -11" fill="#1F1810"/>
+          </g>
+
+          <!-- Row 2 -->
+          <g transform="translate(0, 145)">
+            <rect x="30" y="0" width="60" height="6" fill="#7A5A3F"/>
+            <rect x="110" y="0" width="60" height="6" fill="#7A5A3F"/>
+            <rect x="190" y="0" width="60" height="6" fill="#7A5A3F"/>
+            <circle cx="60" cy="-8" r="6" fill="#EAC9A2" stroke="#051C2C" stroke-width="0.8"/>
+            <circle cx="140" cy="-8" r="6" fill="#C49070" stroke="#051C2C" stroke-width="0.8"/>
+            <circle cx="220" cy="-8" r="6" fill="#D49B70" stroke="#051C2C" stroke-width="0.8"/>
+          </g>
+
+          <text class="persona-tag" x="140" y="200" text-anchor="middle">Students</text>
+        </g>
+
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PERSONA 1: THE CREATOR ===== -->
+<section class="scene mockup-scene">
+  <div class="container-wide">
+    <div class="mockup-grid">
+      <div class="mockup-text reveal">
+        <div class="persona-header-inline">
+          <div class="avatar"><svg viewBox="0 0 64 64"><use href="#face-creator"/></svg></div>
+          <div>
+            <div class="role">Persona 01 · The Creator</div>
+            <div class="name">Ms. Mehta</div>
+          </div>
+        </div>
+        <h3 class="persona-line"><em>Captures</em> intent in 30 minutes.</h3>
+      </div>
+      <div class="mockup-visual reveal delay-2">
+        <div class="chat-mockup" id="chat-1">
+          <div class="chat-header">
+            <span>Birbal</span> <span class="pill">New Course</span> <span style="margin-left:auto; opacity:0.5;">Creator · Ms. Mehta</span>
+          </div>
+          <div class="chat-messages">
+            <div class="chat-msg birbal">What should students walk out knowing by the end of week 4?</div>
+            <div class="chat-msg user">They should identify a real customer problem and run 5 interviews.</div>
+            <div class="chat-msg birbal">Should they reach the level of writing a one-page problem brief?</div>
+            <div class="chat-msg user">Yes. Rigorous. Not vague.</div>
+            <div class="chat-msg birbal">Saved as intent. Faculty submissions for week 4 will be checked against this.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PERSONA 2: THE TEACHER (3 stages) ===== -->
+<section class="scene mockup-scene alt">
+  <div class="container-wide">
+
+    <!-- Stage 1: Before class — PPT upload + Birbal review (slide preview shown) -->
+    <div class="teacher-stage">
+      <div class="mockup-grid reverse">
+        <div class="mockup-text reveal">
+          <div class="persona-header-inline">
+            <div class="avatar"><svg viewBox="0 0 64 64"><use href="#face-teacher"/></svg></div>
+            <div>
+              <div class="role">Persona 02 · The Teacher</div>
+              <div class="name">Mr. Sharma</div>
+            </div>
+          </div>
+          <h3 class="persona-line"><em>Uploads</em> his slides. Birbal checks the plan.</h3>
+        </div>
+        <div class="mockup-visual reveal delay-2">
+          <div class="chat-mockup" id="chat-2">
+            <div class="chat-header">
+              <span>Birbal</span> <span class="pill">Pre-Class Review</span> <span style="margin-left:auto; opacity:0.5;">Faculty · Mr. Sharma</span>
+            </div>
+            <div class="chat-messages">
+              <div class="chat-msg user" style="padding: 10px;">
+                <div class="ppt-attach">
+                  <div class="ppt-slide">
+                    <div class="ppt-num">SLIDE 4 / 24</div>
+                    <div class="ppt-title">Customer Discovery</div>
+                    <div class="ppt-bul">• Identify real customer problem</div>
+                    <div class="ppt-bul">• Conduct interviews</div>
+                    <div class="ppt-bul">• Spot the pattern</div>
+                  </div>
+                  <div class="ppt-name">📎 wk4_customer_interviews.pptx · 24 slides</div>
+                </div>
+              </div>
+              <div class="chat-msg birbal">
+                Reviewed against Ms. Mehta's intent for Week 4.
+                <div style="margin-top:8px;">
+                  <div class="check-line"><span class="mark-ok">✓</span> Slide 4: Customer interview framework</div>
+                  <div class="check-line"><span class="mark-ok">✓</span> Slide 9: 5-interview minimum stated</div>
+                  <div class="check-line"><span class="mark-warn">⚠</span> Slide 12: Missing one-page problem brief exercise</div>
+                  <div class="check-line"><span class="mark-warn">⚠</span> Depth too exploratory — creator wanted rigorous</div>
+                </div>
+              </div>
+              <div class="chat-msg user">Adding the brief exercise. Re-uploading.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stage 2: During class — Birbal in the educomp meeting -->
+    <div class="teacher-stage">
+      <div class="mockup-grid">
+        <div class="mockup-text reveal">
+          <h3 class="persona-line"><em>Watches</em> the class. Live, with Birbal in the room.</h3>
+        </div>
+        <div class="mockup-visual reveal delay-2">
+          <div class="meet-mockup" id="meet-1">
+            <div class="meet-header">
+              <span class="live-dot"></span>
+              <span>Educomp · Lecture 3 · 24 in call</span>
+              <span class="rec-pill">REC 23:14</span>
+            </div>
+            <div class="meet-body">
+              <div class="meet-tiles">
+                <div class="m-tile m-faculty">
+                  <div class="meet-slide">
+                    <div class="ms-num">SLIDE 7 — NOW PRESENTING</div>
+                    <div class="ms-title">Problem–Customer Mismatch</div>
+                  </div>
+                  <div class="tile-label">Mr. Sharma · Faculty</div>
+                </div>
+                <div class="m-tile m-student"><div class="tile-mini">A</div><div class="tile-label">Aarav</div></div>
+                <div class="m-tile m-student"><div class="tile-mini">P</div><div class="tile-label">Priya</div></div>
+                <div class="m-tile m-student"><div class="tile-mini">+22</div><div class="tile-label">22 more</div></div>
+                <div class="m-tile m-birbal">
+                  <div class="birbal-pulse"><span></span><span></span><span></span></div>
+                  <div class="tile-label">Birbal · Listening</div>
+                </div>
+              </div>
+              <div class="meet-side">
+                <div class="side-tag">Live activity</div>
+                <div class="activity-item signal">
+                  <span class="ai-icon">●</span>
+                  <div><strong>Recording</strong><br>Audio + slides captured</div>
+                </div>
+                <div class="activity-item">
+                  <span class="ai-icon">N</span>
+                  <div><strong>Note generated</strong><br>Problem–customer mismatch</div>
+                </div>
+                <div class="activity-item">
+                  <span class="ai-icon">≡</span>
+                  <div><strong>Plan check</strong><br>7 of 10 concepts hit</div>
+                </div>
+                <div class="activity-item alert">
+                  <span class="ai-icon">!</span>
+                  <div><strong>Drift flagged</strong><br>"5-interview rule" not yet covered</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stage 3: After class — Quiz generation -->
+    <div class="teacher-stage">
+      <div class="mockup-grid reverse">
+        <div class="mockup-text reveal">
+          <h3 class="persona-line"><em>Generates</em> notes &amp; quizzes the moment class ends.</h3>
+        </div>
+        <div class="mockup-visual reveal delay-2">
+          <div class="quiz-mockup" id="quiz-1">
+            <div class="quiz-header">
+              <span class="auto-pill">AUTO-GENERATED</span>
+              <span>Quiz · Lecture 3 · 5 questions ready</span>
+            </div>
+            <div class="quiz-body">
+              <div class="quiz-q">
+                <div class="q-num">Q1 of 5</div>
+                <div class="q-text">What is "problem–customer mismatch"?</div>
+                <div class="q-opt correct"><span class="opt-marker">A</span>When the user with the pain isn't the one who pays</div>
+                <div class="q-opt"><span class="opt-marker">B</span>When the product doesn't fit the market</div>
+                <div class="q-opt"><span class="opt-marker">C</span>When students don't understand the problem</div>
+                <div class="q-source">Source · Lecture 3, minute 22</div>
+              </div>
+              <div class="quiz-q">
+                <div class="q-num">Q2 of 5</div>
+                <div class="q-text">Per Ms. Mehta's plan, students must conduct at minimum:</div>
+                <div class="q-opt"><span class="opt-marker">A</span>1 customer interview</div>
+                <div class="q-opt correct"><span class="opt-marker">B</span>5 customer interviews</div>
+                <div class="q-opt"><span class="opt-marker">C</span>10 customer interviews</div>
+                <div class="q-source">Source · Creator intent, Week 4</div>
+              </div>
+              <div class="quiz-q">
+                <div class="q-num">Q3 of 5</div>
+                <div class="q-text">By end of week 4, every student should be able to:</div>
+                <div class="q-opt"><span class="opt-marker">A</span>Pitch a startup idea</div>
+                <div class="q-opt correct"><span class="opt-marker">B</span>Write a one-page problem brief</div>
+                <div class="q-opt"><span class="opt-marker">C</span>Build an MVP</div>
+                <div class="q-source">Source · Creator intent, Week 4</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== PERSONA 3: THE STUDENT ===== -->
+<section class="scene mockup-scene">
+  <div class="container-wide">
+    <div class="mockup-grid">
+      <div class="mockup-text reveal">
+        <div class="persona-header-inline">
+          <div class="avatar"><svg viewBox="0 0 64 64"><use href="#face-student"/></svg></div>
+          <div>
+            <div class="role">Persona 03 · The Student</div>
+            <div class="name">Aarav</div>
+          </div>
+        </div>
+        <h3 class="persona-line"><em>Asks</em> Birbal. Gets answers grounded in the course.</h3>
+      </div>
+      <div class="mockup-visual reveal delay-2">
+        <div class="chat-mockup" id="chat-3">
+          <div class="chat-header">
+            <span>Birbal</span> <span class="pill">Entrepreneurship 101</span> <span style="margin-left:auto; opacity:0.5;">Student · Aarav</span>
+          </div>
+          <div class="chat-messages">
+            <div class="chat-msg user">I didn't get the difference between problem–customer mismatch and product–market fit?</div>
+            <div class="chat-msg birbal">
+              Mr. Sharma touched on it in lecture 3 (around minute 22).<br><br>
+              <b>Problem–customer mismatch</b> happens early — whether the people you're talking to actually have the problem.<br><br>
+              <b>Product–market fit</b> comes later — whether your solution works for them.<br><br>
+              Want a 2-minute exercise to lock it in?
+            </div>
+            <div class="chat-msg user">Yes please.</div>
+            <div class="chat-msg birbal">Sent. Ms. Mehta wanted you to write a one-page problem brief by week 4 — let's build toward that.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Summary table: everything Birbal does -->
+<section class="scene" style="padding: 120px 32px; background: #FBFAF7;">
+  <div class="container-wide">
+    <div class="eyebrow reveal" style="text-align:center;">Everything Birbal does</div>
+    <h2 class="reveal delay-1" style="text-align:center;">The whole loop, in <em>one place</em>.</h2>
+
+    <div class="summary-table reveal delay-2">
+      <div class="sum-row header">
+        <div>When</div>
+        <div>What Birbal does</div>
+        <div>For whom</div>
+      </div>
+
+      <div class="sum-row">
+        <div class="stage"><span class="stage-pill">Design</span></div>
+        <div class="what">Captures the creator's intent in a 30-minute chat.</div>
+        <div class="who">Creator</div>
+      </div>
+      <div class="sum-row">
+        <div class="stage"><span class="stage-pill">Design</span></div>
+        <div class="what">Stores intent as a <strong>living, queryable reference</strong>.</div>
+        <div class="who">Creator</div>
+      </div>
+
+      <div class="sum-row">
+        <div class="stage"><span class="stage-pill">Before class</span></div>
+        <div class="what">Reviews uploaded slides against intent <strong>in 10 seconds</strong>.</div>
+        <div class="who">Teacher</div>
+      </div>
+      <div class="sum-row">
+        <div class="stage"><span class="stage-pill">Before class</span></div>
+        <div class="what">Returns slide-by-slide alignment report — what's covered, what's missing.</div>
+        <div class="who">Teacher</div>
+      </div>
+
+      <div class="sum-row">
+        <div class="stage"><span class="stage-pill">In class</span></div>
+        <div class="what">Joins the educomp meeting as a <strong>silent participant</strong>.</div>
+        <div class="who">Teacher · Student</div>
+      </div>
+      <div class="sum-row">
+        <div class="stage"><span class="stage-pill">In class</span></div>
+        <div class="what">Records audio + slides for the full lecture.</div>
+        <div class="who">Teacher · Student</div>
+      </div>
+      <div class="sum-row">
+        <div class="stage"><span class="stage-pill">In class</span></div>
+        <div class="what">Generates lecture notes for students <strong>in real time</strong>.</div>
+        <div class="who">Student</div>
+      </div>
+      <div class="sum-row">
+        <div class="stage"><span class="stage-pill">In class</span></div>
+        <div class="what">Tracks plan coverage live — concept by concept.</div>
+        <div class="who">Teacher · Creator</div>
+      </div>
+      <div class="sum-row">
+        <div class="stage"><span class="stage-pill">In class</span></div>
+        <div class="what"><strong>Flags drift the same hour</strong> — not at term-end.</div>
+        <div class="who">Teacher · Creator</div>
+      </div>
+
+      <div class="sum-row">
+        <div class="stage"><span class="stage-pill">After class</span></div>
+        <div class="what">Auto-generates quiz questions from what was actually taught.</div>
+        <div class="who">Student</div>
+      </div>
+      <div class="sum-row">
+        <div class="stage"><span class="stage-pill">After class</span></div>
+        <div class="what">Sends a personal pre-class brief for the next session.</div>
+        <div class="who">Student</div>
+      </div>
+
+      <div class="sum-row">
+        <div class="stage"><span class="stage-pill">Always</span></div>
+        <div class="what">Answers student doubts <strong>grounded in this course</strong> — with sources.</div>
+        <div class="who">Student</div>
+      </div>
+      <div class="sum-row">
+        <div class="stage"><span class="stage-pill">Always</span></div>
+        <div class="what">Surfaces alignment scores per course on a single dashboard.</div>
+        <div class="who">Masters' Union leadership</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Closing nudge for tab 2 -->
+<section class="scene" style="padding: 80px 32px; min-height: auto;">
+  <div class="container" style="text-align:center;">
+    <p class="reveal"><a href="#" class="next-tab" data-next="contact" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--signal); text-decoration: none; border-bottom: 1px solid var(--signal); padding-bottom: 4px;">Reach out →</a></p>
+  </div>
+</section>
+
+</div>
+<!-- ============ /TAB 2 ============ -->
+
+
+<!-- ============ TAB 3: HOW TO CONTACT ============ -->
+<div class="tab-panel" id="tab-contact" role="tabpanel">
+
+<!-- HOW TO CONTACT -->
+<section class="scene cta-scene">
+  <div class="container">
+    <div class="eyebrow reveal" style="color: var(--signal);">How to contact</div>
+    <h2 class="reveal delay-1">Pick whichever feels <em>easiest</em>.</h2>
+
+    <div class="cta-buttons reveal delay-3" style="justify-content: center;">
+      <a href="https://calendly.com/your-link/birbal-masters-union" class="cta-button" target="_blank" rel="noopener">
+        Book 20 minutes
+        <span class="arrow">↗</span>
+      </a>
+      <a href="mailto:workwithmadhuramagarwal@gmail.com?subject=Birbal%20pilot%20at%20Masters%27%20Union" class="cta-secondary">
+        or reply by email →
+      </a>
+    </div>
+  </div>
+</section>
+
+</div>
+<!-- ============ /TAB 3 ============ -->
+
+<footer>
+  <div class="f-left">
+    <span class="mark">Birbal</span>
+    <span class="dot"></span>
+    <span>birbal.studio</span>
+  </div>
+  <div class="f-center">
+    <a href="mailto:workwithmadhuramagarwal@gmail.com">workwithmadhuramagarwal@gmail.com</a>
+  </div>
+  <div class="f-right">Confidential · Prepared for Masters' Union</div>
+</footer>
+
+<script>
+const bar = document.getElementById('bar');
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+  bar.style.width = pct + '%';
+}, { passive: true });
+
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.18, rootMargin: '0px 0px -80px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+const mockupIo = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      mockupIo.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.25 });
+
+document.querySelectorAll('.chat-mockup, .dash-mockup, .live-mockup, .comparison, .meet-mockup, .quiz-mockup')
+  .forEach(el => mockupIo.observe(el));
+
+// ===== Tab switching =====
+function switchTab(target) {
+  document.querySelectorAll('.tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.tab === target);
+  });
+  document.querySelectorAll('.tab-panel').forEach(p => {
+    p.classList.toggle('active', p.id === 'tab-' + target);
+  });
+  window.scrollTo({ top: 0, behavior: 'auto' });
+
+  const panel = document.getElementById('tab-' + target);
+  if (!panel) return;
+  panel.querySelectorAll('.reveal').forEach(el => {
+    if (!el.classList.contains('in')) io.observe(el);
+  });
+  panel.querySelectorAll('.chat-mockup, .dash-mockup, .live-mockup, .comparison, .meet-mockup, .quiz-mockup').forEach(el => {
+    if (!el.classList.contains('in')) mockupIo.observe(el);
+  });
+}
+
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => switchTab(tab.dataset.tab));
+});
+
+document.querySelectorAll('.next-tab').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    switchTab(link.dataset.next);
+  });
+});
+</script>
+
+</body>
+</html>
